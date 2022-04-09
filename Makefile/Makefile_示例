@@ -1,0 +1,57 @@
+###############################################################
+#main : main.c add1.c add2.c
+#	gcc main.c add1.c add2.c -o main
+
+###############################################################
+#main : main.o add1.o add2.o
+#	gcc main.o add1.o add2.o -o main
+
+#main.o : main.c
+#	gcc -c main.c -o main.o
+
+#add1.o : add1.c
+#	gcc -c add1.c -o add1.o
+
+#add2.o : add2.c
+#	gcc -c add2.c -o add2.o
+
+###############################################################
+#obj = main.o add1.o add2.o
+#target = main
+#CC = gcc
+
+#$(target) : $(obj)
+#	$(CC) $(obj) -o $(target)
+
+#%.o:%.c
+#	$(CC) -c $< -o $@
+
+###############################################################
+#src = $(wildcard ./*.c)
+#obj = $(patsubst %.c,%.o,$(src))
+#target = main
+#CC = gcc
+#$(target) : $(obj)
+#	$(CC) $(obj) -o $(target)
+
+#%.o:%.c
+#	$(CC) -c $< -o $@
+
+#.PHONY: clean
+#clean:
+#	rm -rf $(obj) $(target)
+
+###############################################################
+src = $(wildcard ./src/*.c)
+obj = $(patsubst %.c,%.o,$(src))
+target = main
+CC = gcc
+$(target) : $(obj)
+	$(CC) $(obj) -o $(target)
+
+%.o:%.c
+	$(CC) -c $< -o $@
+
+.PHONY: clean
+clean:
+	rm -rf $(obj) $(target)
